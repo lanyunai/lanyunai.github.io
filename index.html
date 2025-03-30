@@ -6,6 +6,50 @@
     <title>蓝云工坊</title>
     <link rel="icon" type="image/x-icon" href="img\logoa.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        window.onload = function() {
+            // 检查是否首次访问
+            if(!localStorage.getItem('visited')) {
+                // 创建弹窗
+                var modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                modal.style.zIndex = '1000';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                
+                // 创建iframe加载远程文档
+                var iframe = document.createElement('iframe');
+                iframe.src = 'https://api.yunsss.asia/fileecho.php?id=2060';
+                iframe.style.width = '80%';
+                iframe.style.height = '80%';
+                iframe.style.border = 'none';
+                iframe.style.backgroundColor = 'white';
+                
+                // 添加关闭按钮
+                var closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '关闭';
+                closeBtn.style.position = 'absolute';
+                closeBtn.style.top = '10px';
+                closeBtn.style.right = '10px';
+                closeBtn.onclick = function() {
+                    document.body.removeChild(modal);
+                };
+                
+                modal.appendChild(iframe);
+                modal.appendChild(closeBtn);
+                document.body.appendChild(modal);
+                
+                // 标记为已访问
+                localStorage.setItem('visited', 'true');
+            }
+        };
+    </script>
     <style>
         /* 添加遮罩层样式 */
         #overlay {
@@ -119,7 +163,9 @@
             <h2>推荐资源</h2>
             <button id="refreshButton" class="search-button">刷新推荐</button>
         </div>
-        <div id="randomResources" class="resource-grid"></div>
+        <div id="randomResources" class="resource-grid">
+            <!-- 推荐卡片将横向排列 -->
+        </div>
     </section>
     <section class="search-section">
         <p>Copyright © 2025 蓝云工坊Blucraft </p>
