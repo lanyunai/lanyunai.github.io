@@ -1,0 +1,749 @@
+/* 搜索框扩展效果 */
+.search-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap; /* 禁止换行 */
+    min-width: 0; /* 允许容器缩小 */
+}
+
+#searchInput {
+    flex: 1; /* 搜索框占据剩余空间 */
+    min-width: 100px; /* 设置最小宽度 */
+    padding: 0;
+    border: none;
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+
+#searchInput.expanded {
+    width: 200px;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.search-button {
+    padding: 12px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+/* 图片按钮样式 */
+.image-buttons-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: 10px;
+    min-width: 0; /* 允许容器缩小 */
+}
+
+.image-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 0; /* 移除原有的 margin-top */
+    flex-wrap: nowrap; /* 禁止换行 */
+}
+
+.image-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 1; /* 允许按钮缩小 */
+}
+
+.image-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.image-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 轮播图样式 */
+.carousel-section {
+    margin-bottom: 40px;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 600px; 
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    display: block; /* 修改为始终显示，通过 transform 控制位置 */
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%; /* 图片宽度设置为100%，自适应容器宽度 */
+    height: auto; /* 高度自动调整，保持图片比例 */
+    object-fit: cover;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+/* 其他样式 */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px; /* 增加网格间距 */
+    padding: 30px; /* 增加内边距 */
+}
+
+.resource-item {
+    background: white;
+    border-radius: 8px; /* 减小圆角 */
+    padding: 15px; /* 减小内边距 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 减小阴影 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.resource-item img {
+    width: 100%;
+    height: 150px; /* 减小图片高度 */
+    object-fit: contain;
+    border-radius: 6px; /* 减小图片圆角 */
+    transition: transform 0.2s ease;
+}
+
+.resource-item img:hover {
+    transform: scale(1.05);
+}
+
+.download-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+.detail-button {
+    width: 100%;
+    padding: 8px; /* 修改 padding，使按钮更扁 */
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+}
+
+.detail-button:hover {
+    background: #0056b3;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .site-header .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .site-header .site-logo {
+        margin-bottom: 10px;
+    }
+
+    .carousel-container {
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .search-section {
+        padding: 20px;
+    }
+
+    .search-container {
+        flex-direction: row; /* 保持水平排列 */
+        gap: 5px; /* 缩小间距 */
+    }
+
+    #searchInput {
+        padding: 8px; /* 调整内边距 */
+        font-size: 0.9rem;
+        min-width: 80px; /* 设置更小的最小宽度 */
+    }
+
+    .search-button {
+        padding: 8px; /* 调整内边距 */
+        font-size: 0.9rem;
+    }
+
+    .resource-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .resource-item img {
+        height: 150px;
+    }
+
+    .resource-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .resource-item p {
+        font-size: 0.9rem;
+    }
+
+    .detail-button {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .back-button a {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .image-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* 缩小间距 */
+    }
+
+    .image-button {
+        width: 80px; /* 缩小按钮尺寸 */
+        height: 80px;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .sidebar ul li a {
+        font-size: 16px;
+    }
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.site-header1 {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-logo img {
+    height: 50px;
+}
+
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.site-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.site-nav a:hover {
+    color: #f0f0f0;
+}
+
+.site-footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.resource-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.resource-item {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.resource-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.resource-item h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 15px 0 10px;
+}
+
+.resource-item p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.detail-button {
+    width: 100%;
+    padding: 10px;
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.detail-button:hover {
+    background: #1976d2;
+}
+
+#resourceDetail {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.detail-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.detail-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.meta-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.meta-info p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 10px 0;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+.back-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-button a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+.search-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #2196f3;
+}
+
+.search-button {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.loading .resource-item {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.refreshing {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.no-results {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+.recommendation-card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: auto;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.recommendation-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 8px 8px 0 0;
+}
+
+.recommendation-card h3 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.recommendation-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.recommendation-card .detail-button {
+    width: 100%;
+    padding: 8px;
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.recommendation-card .detail-button:hover {
+    background: #1976d2;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    background-color: #333;
+    transition: left 0.3s ease;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* 添加新的样式规则 */
+#paymentImageContainer img {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+}
+
+.payment-method-button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.payment-method-button:hover {
+    background-color: #0056b3;
+}
+ /* 添加遮罩层样式 */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            display: none;
+        }
+
+        /* 调整侧边栏按钮的层级 */
+        .sidebar-toggle {
+            z-index: 1001;
+        }
+
+        /* 侧边栏展开时的样式 */
+        .sidebar.active {
+            z-index: 1000;
+        }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.payment-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.payment-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+#paymentImage {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+}

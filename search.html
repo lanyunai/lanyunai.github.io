@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索结果</title>
+    <link rel="icon" type="image/x-icon" href="img\logoa.png"/>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 新增样式 */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tab-button.active {
+            background: #2196f3;
+            color: white;
+        }
+        .result-section {
+            display: none;
+        }
+        .result-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-button">
+        <a href="index.html">← 返回首页</a>
+    </div>
+    <div id="searchResults">
+        <h1>搜索结果</h1>
+        <!-- 新增标签切换按钮 -->
+        <div class="tab-container">
+            <button class="tab-button active" data-target="nameResults">名称结果</button>
+            <button class="tab-button" data-target="authorResults">作者结果</button>
+            <button class="tab-button" data-target="categoryResults">分类结果</button>
+        </div>
+        <!-- 结果部分 -->
+        <div id="nameResults" class="result-section active">
+            <div class="resource-grid"></div>
+        </div>
+        <div id="authorResults" class="result-section">
+            <div class="resource-grid"></div>
+        </div>
+        <div id="categoryResults" class="result-section">
+            <div class="resource-grid"></div>
+        </div>
+    </div>
+
+    <script src="information.js"></script>
+    <script>
+    // 新增标签切换功能
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.result-section').forEach(section => section.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById(button.dataset.target).classList.add('active');
+        });
+    });
+
+    function renderResource(resource, container) {
+        const item = document.createElement('div');
+        item.className = 'resource-item';
+        item.innerHTML = `
+            <div class="resource-thumbnail">
+                <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+                <div class="resource-meta">
+                    <span class="version">v${resource.version}</span>
+                    <span class="category">${categoryMap[resource.category]}</span>
+                </div>
+            </div>
+            <div class="resource-content">
+                <h3>${resource.name}</h3>
+                <div class="resource-info">
+                    <p class="author">${resource.author}</p>
+                    <p class="size">${resource.size}</p>
+                </div>
+                <button class="detail-button" 
+                        onclick="gotoResourceDetail(${resource.id})"
+                        aria-label="查看详情">
+                    <span>查看详情</span>
+                    <svg>...</svg>
+                </button>
+            </div>
+        `;
+        container.appendChild(item);
+    }
+
+    function loadSearchResults() {
+        const query = new URLSearchParams(window.location.search).get('q').toLowerCase();
+        const nameResultsContainer = document.querySelector('#nameResults .resource-grid');
+        const authorResultsContainer = document.querySelector('#authorResults .resource-grid');
+        const categoryResultsContainer = document.querySelector('#categoryResults .resource-grid');
+
+        nameResultsContainer.innerHTML = '';
+        authorResultsContainer.innerHTML = '';
+        categoryResultsContainer.innerHTML = '';
+
+        let hasNameResults = false;
+        let hasAuthorResults = false;
+        let hasCategoryResults = false;
+
+        resources.forEach(resource => {
+            if (resource.name.toLowerCase().includes(query)) {
+                renderResource(resource, nameResultsContainer);
+                hasNameResults = true;
+            }
+            if (resource.author.toLowerCase().includes(query)) {
+                renderResource(resource, authorResultsContainer);
+                hasAuthorResults = true;
+            }
+            if (resource.category.toLowerCase().includes(query)) {
+                renderResource(resource, categoryResultsContainer);
+                hasCategoryResults = true;
+            }
+        });
+
+        // 添加没有结果的提示
+        if (!hasNameResults) {
+            nameResultsContainer.innerHTML = '<p class="no-results">没有找到资源</p>';
+        }
+        if (!hasAuthorResults) {
+            authorResultsContainer.innerHTML = '<p class="no-results">没有找到匹配作者的资源</p>';
+        }
+        if (!hasCategoryResults) {
+            categoryResultsContainer.innerHTML = '<p class="no-results">没有找到匹配分类的资源</p>';
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadSearchResults);
+    </script>
+</body>
+</html>

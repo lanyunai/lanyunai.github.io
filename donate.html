@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打赏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .donate-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            max-width: 500px;
+            width: 100%;
+        }
+        .donate-container h1 {
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        .donate-container p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 16px;
+        }
+        .donate-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .donate-container a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .donate-container a:hover {
+            background-color: #0056b3;
+        }
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        .tab-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .tab-buttons button:hover {
+            background-color: #0056b3;
+        }
+        .tab-buttons button.active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="donate-container">
+        <h1>感谢您的支持！</h1>
+        <p>如果您觉得这个项目对您有帮助，欢迎打赏支持我们。</p>
+        <div class="tab-buttons">
+            <button class="active" onclick="showWechat()">微信</button>
+            <button onclick="showAlipay()">支付宝</button>
+        </div>
+        <img id="qrCode" src="https://via.placeholder.com/300?text=微信二维码" alt="打赏二维码">
+        <a href="index.html">返回首页</a>
+    </div>
+    <script>
+        function showWechat() {
+            document.getElementById('qrCode').src = 'https://via.placeholder.com/300?text=微信二维码';
+            document.querySelector('.tab-buttons button:first-child').classList.add('active');
+            document.querySelector('.tab-buttons button:last-child').classList.remove('active');
+        }
+        function showAlipay() {
+            document.getElementById('qrCode').src = 'https://via.placeholder.com/300?text=支付宝二维码';
+            document.querySelector('.tab-buttons button:first-child').classList.remove('active');
+            document.querySelector('.tab-buttons button:last-child').classList.add('active');
+        }
+    </script>
+</body>
+</html>

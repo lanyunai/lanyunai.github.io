@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝云工坊开放平台</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header1">
+        <div class="header-content">
+            <div class="site-logo">
+                <img src="img/logoa.png" alt="蓝云工坊">
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">开发文档</a></li>
+                    <li><a href="#">开发者工具</a></li>
+                    <li><a href="#">社区</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="搜索开发文档或工具...">
+            <button class="search-button">搜索</button>
+        </div>
+    </section>
+    <section class="search-section">
+        <div class="carousel-container">
+            <div class="carousel-slides">
+                <div class="carousel-slide active">
+                    <img src="img/1.jpg" alt="Slide 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/2.jpg" alt="Slide 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/3.jpg" alt="Slide 3">
+                </div>
+            </div>
+            <button class="carousel-prev">&#10094;</button>
+            <button class="carousel-next">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="resource-grid">
+        <div class="resource-item">
+            <img src="images/docs.png" alt="开发文档">
+            <h3>开发文档</h3>
+            <p>详细的API文档和使用指南，助您快速上手蓝云工坊的开发。</p>
+            <button class="detail-button" onclick="window.location.href='https://www.yuque.com/g/u34389823/xgsyaq/tuscys8b3di4yfau/collaborator/join?token=KIXNyMd86RWfoRsY&source=doc_collaborator# 《应用开发规范》'">查看详情</button>
+        </div>
+        <div class="resource-item">
+            <img src="images/dev-tools.png" alt="开发者工具">
+            <h3>开发者工具</h3>
+            <p>下载最新的开发者工具包，包含SDK、CLI等开发必备工具。</p>
+            <button class="detail-button" onclick="window.location.href='tools.html'">下载工具</button>
+        </div>
+        <div class="resource-item">
+            <img src="images/community.png" alt="社区">
+            <h3>开发者社区</h3>
+            <p>加入开发者社区，与其他开发者交流经验，获取技术支持。</p>
+            <button class="detail-button" onclick="window.location.href='community.html'">加入社区</button>
+        </div>
+    </section>
+
+    <!-- 新增推荐资源卡片部分 -->
+    <section class="recommendation-section">
+        <h2>推荐资源</h2>
+        <div class="recommendation-container">
+            <div class="recommendation-card">
+                <img src="images/recommend1.jpg" alt="推荐资源1">
+                <h3>快速入门指南</h3>
+                <p>帮助新用户快速了解蓝云工坊的基本功能和使用方法。</p>
+            </div>
+            <div class="recommendation-card">
+                <img src="images/recommend2.jpg" alt="推荐资源2">
+                <h3>API参考手册</h3>
+                <p>详细的API文档，包含所有接口的使用说明和示例代码。</p>
+            </div>
+            <div class="recommendation-card">
+                <img src="images/recommend3.jpg" alt="推荐资源3">
+                <h3>最佳实践</h3>
+                <p>分享开发者在蓝云工坊上的最佳实践和经验总结。</p>
+            </div>
+        </div>
+    </section>
+    <script>
+                // 轮播图功能
+                let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const slidesContainer = document.querySelector('.carousel-slides');
+
+        function showSlide(index) {
+            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        document.querySelector('.carousel-next').addEventListener('click', nextSlide);
+        document.querySelector('.carousel-prev').addEventListener('click', prevSlide);
+
+        // 自动轮播
+        setInterval(nextSlide, 5000);
+    </script>
+    <footer class="site-footer">
+        <p>&copy; 2023 蓝云工坊开放平台. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
