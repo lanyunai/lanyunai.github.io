@@ -73,6 +73,12 @@
         .sidebar.active {
             z-index: 1000;
         }
+
+        /* 调整模态框的层级 */
+        .modal {
+            z-index: 10000; /* 修改为最高层级 */
+        }
+
     </style>
 </head>
 <body>
@@ -80,10 +86,8 @@
     <div id="overlay"></div>
     <div id="sidebar" class="sidebar" style="z-index: 1020;">
         <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">关于我们</a></li>
-            <li><a href="#">服务</a></li>
-            <li><a href="#">联系我们</a></li>
+            <li><a onclick="openModal(appModal)">下载app</a></li>
+            <li><a onclick="openModal(announcementModal)">公告</a></li>
         </ul>
     </div>
     <header class="site-header">
@@ -129,7 +133,7 @@
                 <div class="image-button" onclick="window.location.href='page3.html'">
                     <img src="img\icon\vip.png" alt="Button 3">
                 </div>
-                <div class="image-button" onclick="window.location.href='dev.html'">
+                <div class="image-button" onclick="window.location.href='dev/index.html'">
                     <img src="img\icon\dev.png" alt="Button 4">
                 </div>
             </div>
@@ -155,6 +159,23 @@
         <div id="paymentImageContainer">
             <img id="paymentImage" src="img\alipay.jpg" alt="Payment QR Code"> <!-- 默认显示支付宝二维码 -->
         </div>
+    </div>
+</div>
+
+<!-- App Modal -->
+<div id="appModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>下载APP</h2>
+        <img src="img/app_qr.png" alt="App QR Code" style="width: 80%; margin: 0 auto; display: block;">
+    </div>
+</div>
+
+<!-- Announcement Modal -->
+<div id="announcementModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <iframe src="https://api.yunsss.asia/fileecho.php?id=2060" style="width: 100%; height: 80%; border: none;"></iframe>
     </div>
 </div>
     </section>
@@ -191,7 +212,7 @@ function openModal(modal) {
     modal.style.display = 'block';
 }
 
-// 关闭按钮事件监听器
+// 为关闭按钮添加事件监听器
 closeButtons.forEach(button => {
     button.addEventListener('click', () => {
         const modal = button.closest('.modal');
@@ -227,6 +248,7 @@ document.querySelector('.image-button:nth-child(1)').addEventListener('click', (
 document.querySelector('.image-button:nth-child(2)').addEventListener('click', () => {
     openModal(donationModal);
 });
+
         // 轮播图功能
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-slide');
@@ -263,28 +285,18 @@ document.querySelector('.image-button:nth-child(2)').addEventListener('click', (
             
             getRandomResources(6).forEach(resource => {
                 const item = document.createElement('div');
-                item.className = 'resource-item';
+                item.className = 'recommendation-card';
                 item.innerHTML = `
-                    <div class="resource-thumbnail">
-                        <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
-                        <div class="resource-meta">
-                            <span class="version">v${resource.version}</span>
-                            <span class="category">${categoryMap[resource.category]}</span>
-                        </div>
-                    </div>
-                    <div class="resource-content">
+                    <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+                    <div>
                         <h3>${resource.name}</h3>
-                        <div class="resource-info">
-                            <p class="author">${resource.author}</p>
-                            <p class="size">${resource.size}</p>
-                        </div>
-                        <button class="detail-button" 
-                                onclick="gotoResourceDetail(${resource.id})"
-                                aria-label="查看详情">
-                            <span>查看详情</span>
-                            <svg>...</svg>
-                        </button>
+                        <p class="author">${resource.author}</p>
                     </div>
+                    <button class="detail-button" 
+                            onclick="gotoResourceDetail(${resource.id})"
+                            aria-label="查看详情">
+                        <span>查看详情</span>
+                    </button>
                 `;
                 container.appendChild(item);
             });
@@ -312,28 +324,18 @@ document.querySelector('.image-button:nth-child(2)').addEventListener('click', (
                 
                 getRandomResources(6).forEach(resource => {
                     const item = document.createElement('div');
-                    item.className = 'resource-item';
+                    item.className = 'recommendation-card';
                     item.innerHTML = `
-                        <div class="resource-thumbnail">
-                            <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
-                            <div class="resource-meta">
-                                <span class="version">v${resource.version}</span>
-                                <span class="category">${categoryMap[resource.category]}</span>
-                            </div>
-                        </div>
-                        <div class="resource-content">
+                        <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+                        <div>
                             <h3>${resource.name}</h3>
-                            <div class="resource-info">
-                                <p class="author">${resource.author}</p>
-                                <p class="size">${resource.size}</p>
-                            </div>
-                            <button class="detail-button" 
-                                    onclick="gotoResourceDetail(${resource.id})"
-                                    aria-label="查看详情">
-                                <span>查看详情</span>
-                                <svg>...</svg>
-                            </button>
+                            <p class="author">${resource.author}</p>
                         </div>
+                        <button class="detail-button" 
+                                onclick="gotoResourceDetail(${resource.id})"
+                                aria-label="查看详情">
+                            <span>查看详情</span>
+                        </button>
                     `;
                     container.appendChild(item);
                 });
