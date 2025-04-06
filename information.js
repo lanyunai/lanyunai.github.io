@@ -7,9 +7,14 @@ const resources = [
     { id: 5, name: '跑分', author: 'Justliuil', version: '3.1', size: '33KB', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/pf.rpk' },
     { id: 6, name: '王者农药（模拟器）', author: 'Justliuil', version: '1.0.0', size: '122KB', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/wzny.rpk' },
     { id: 7, name: '骰子', author: '未知', version: '1.0', size: '434KB', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/tz.rpk' },
-    { id: 8, name: '像素鸟', author: '未知', version: '1.0.0', size: '45.3KB', category: '游戏', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/xsn.rpk' },
-    { id: 9, name: '蓝盒转盘', author: 'Jusliuil', version: '1.0.0', size: '106KB', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/lanhezhuanpan.rpk' },
+    { id: 8, name: '像素鸟', author: '小赵dc', version: '1.0.0', size: '45.3KB', category: '游戏', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/xsn.rpk' },
+    { id: 9, name: '蓝盒转盘', author: '小赵dc', version: '1.0.0', size: '106KB', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/lanhezhuanpan.rpk' },
     { id: 10, name: '水果大作战', author: '未知', version: '1.0.0', size: '209KB', category: '游戏', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/shuiguodaxiaozhan.rpk' },   
+    { id: 11, name: '日历', author: 'itosEO', version: '1.0', size: '22kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/rl.rpk' },
+    { id: 12, name: '空气手枪', author: '未知', version: '1.0', size: '358kb', category: '游戏', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/kqsq.rpk' },
+    { id: 13, name: '音效盒子', author: '小米矿石', version: '1.0', size: '246kb', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/yxhz.rpk' },
+    { id: 14, name: '电子木鱼', author: 'star7', version: '1.0.7', size: '129kb', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/dzmy.rpk' },
+    { id: 15, name: '极简数字时钟', author: '未知', version: '1.0.0', size: '28kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/jjszsz.rpk' }
 ];
 
 const categoryMap = {
