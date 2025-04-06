@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝云工坊应用上架生成器</title>
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>应用上架</h2>
+        <input type="number" id="id" placeholder="ID">
+        <input type="text" id="name" placeholder="名称">
+        <input type="text" id="author" placeholder="作者">
+        <input type="text" id="version" placeholder="版本">
+        <input type="text" id="size" placeholder="大小">
+        <select id="category">
+            <option value="游戏">游戏</option>
+            <option value="娱乐">娱乐</option>
+            <option value="工具">工具</option>
+        </select>
+        <input type="text" id="icon" placeholder="图标路径" value="img/a.png">
+        <input type="text" id="download" placeholder="下载链接" value="https://lanyuncraft.github.io/ku/">
+        <button onclick="generateCode()">生成代码</button>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        function generateCode() {
+            const idInput = document.getElementById('id');
+            let id = parseInt(idInput.value);
+            if (isNaN(id)) {
+                id = 0;
+            }
+            const name = document.getElementById('name').value;
+            const author = document.getElementById('author').value;
+            const version = document.getElementById('version').value;
+            const size = document.getElementById('size').value;
+            const category = document.getElementById('category').value;
+            const icon = document.getElementById('icon').value;
+            const download = document.getElementById('download').value;
+
+            const code = `{ id: ${id}, name: '${name}', author: '${author}', version: '${version}', size: '${size}', category: '${category}', icon: '${icon}', download: '${download}' }\n`;
+
+            const output = document.getElementById('output');
+            output.innerText = output.innerText + code;
+
+            // 自动增加 ID
+            idInput.value = id + 1;
+
+            // 清除除了编号、下载链接、图标路径的其他信息
+            document.getElementById('name').value = '';
+            document.getElementById('author').value = '';
+            document.getElementById('version').value = '';
+            document.getElementById('size').value = '';
+            document.getElementById('category').value = '游戏'; // 重置为默认值
+        }
+    </script>
+</body>
+</html>
