@@ -14,7 +14,8 @@ const resources = [
     { id: 12, name: '空气手枪', author: '未知', version: '1.0', size: '358kb', category: '游戏', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/kqsq.rpk' },
     { id: 13, name: '音效盒子', author: '小米矿石', version: '1.0', size: '246kb', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/yxhz.rpk' },
     { id: 14, name: '电子木鱼', author: 'star7', version: '1.0.7', size: '129kb', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/dzmy.rpk' },
-    { id: 15, name: '极简数字时钟', author: '未知', version: '1.0.0', size: '28kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/jjszsz.rpk' }
+    { id: 15, name: '极简数字时钟', author: '未知', version: '1.0.0', size: '28kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/jjszsz.rpk' },
+    { id: 16, name: '屏幕安全卫士', author: '晦月', version: '1.0', size: '23kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/pmaqws.rpk' }
 ];
 
 const categoryMap = {
