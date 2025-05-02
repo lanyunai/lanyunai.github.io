@@ -81,6 +81,31 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
         }
+
+        .share-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .copy-success {
+            color: #4CAF50;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +123,8 @@
                 <p>分类：<span id="detailCategory"></span></p>
             </div>
             <a id="downloadBtn" class="download-button">立即下载</a>
+            <button id="shareBtn" class="share-button">分享</button>
+            <div id="copySuccess" class="copy-success">复制成功！</div>
         </div>
     </div>
 
@@ -123,6 +150,22 @@
             document.getElementById('resourceDetail').innerHTML = '<p>资源不存在</p>';
         }
     }
+
+    // 分享按钮点击事件
+    document.getElementById('shareBtn').addEventListener('click', function() {
+        const resourceName = document.getElementById('detailName').textContent;
+        const url = window.location.href;
+        const textToCopy = `我向你分享了${resourceName}，点击链接${url}即可查看`;
+
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            document.getElementById('copySuccess').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('copySuccess').style.display = 'none';
+            }, 2000);
+        }, function(err) {
+            console.error('复制失败: ', err);
+        });
+    });
 
     window.addEventListener('DOMContentLoaded', loadResourceDetail);
     </script>

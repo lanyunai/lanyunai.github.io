@@ -95,7 +95,6 @@
             <div class="header-content" style="display: flex; align-items: center; gap: 10px;">
                 <img src="img/logo.svg" alt="蓝云工坊 Logo" class="site-logo" width="80" height="80">
                 <div style="display: flex; flex-direction: column;">
-                    <h1 class="site-title">蓝云工坊-内测</h1>
                 </div>
             </div>
             <div class="search-container">
@@ -122,7 +121,6 @@
         </div>
     </section>
     <section class="search-section">
-        <div class="image-buttons-container">
             <div class="image-buttons">
                 <div class="image-button" onclick="openModal(aboutModal)">
                     <img src="img\icon\about.png" alt="Button 1">
@@ -136,7 +134,9 @@
                 <div class="image-button" onclick="window.location.href='dev/index.html'">
                     <img src="img\icon\dev.png" alt="Button 4">
                 </div>
-            </div>
+                <div class="image-button" onclick="window.location.href='https://forms.cloud.microsoft/r/wh7iRivFcL'">
+                    <img src="img\icon\up.png" alt="Button 4">
+                </div>
         </div>
         <!-- About Modal -->
 <div id="aboutModal" class="modal">
@@ -181,6 +181,14 @@
     </section>
     <section class="search-section">
         <div style="display: flex; align-items: center; gap: 10px;">
+            <h2>最新上架</h2>
+        </div>
+        <div id="latestResources" class="resource-grid">
+            <!-- 最新上架卡片将横向排列 -->
+        </div>
+    </section>
+    <section class="search-section">
+        <div style="display: flex; align-items: center; gap: 10px;">
             <h2>推荐资源</h2>
             <button id="refreshButton" class="search-button">刷新推荐</button>
         </div>
@@ -195,59 +203,59 @@
     <script src="information.js"></script>
     <script>
         // 获取元素引用
-const aboutModal = document.getElementById('aboutModal');
-const donationModal = document.getElementById('donationModal');
-const closeButtons = document.querySelectorAll('.close');
-const alipayButton = document.getElementById('alipayButton');
-const wechatButton = document.getElementById('wechatButton');
-const paymentImage = document.getElementById('paymentImage');
+        const aboutModal = document.getElementById('aboutModal');
+        const donationModal = document.getElementById('donationModal');
+        const closeButtons = document.querySelectorAll('.close');
+        const alipayButton = document.getElementById('alipayButton');
+        const wechatButton = document.getElementById('wechatButton');
+        const paymentImage = document.getElementById('paymentImage');
 
-// 关闭模态框函数
-function closeModal(modal) {
-    modal.style.display = 'none';
-}
+        // 关闭模态框函数
+        function closeModal(modal) {
+            modal.style.display = 'none';
+        }
 
-// 打开模态框函数
-function openModal(modal) {
-    modal.style.display = 'block';
-}
+        // 打开模态框函数
+        function openModal(modal) {
+            modal.style.display = 'block';
+        }
 
-// 为关闭按钮添加事件监听器
-closeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = button.closest('.modal');
-        closeModal(modal);
-    });
-});
+        // 为关闭按钮添加事件监听器
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                closeModal(modal);
+            });
+        });
 
-// 点击外部区域关闭模态框
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.style.display = 'none';
-    }
-};
+        // 点击外部区域关闭模态框
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
 
-// 切换支付方式
-alipayButton.addEventListener('click', () => {
-    alipayButton.classList.add('active');
-    wechatButton.classList.remove('active');
-    paymentImage.src = 'img/alipay.jpg'; // 替换为实际的支付宝二维码图片路径
-});
+        // 切换支付方式
+        alipayButton.addEventListener('click', () => {
+            alipayButton.classList.add('active');
+            wechatButton.classList.remove('active');
+            paymentImage.src = 'img/alipay.jpg'; // 替换为实际的支付宝二维码图片路径
+        });
 
-wechatButton.addEventListener('click', () => {
-    wechatButton.classList.add('active');
-    alipayButton.classList.remove('active');
-    paymentImage.src = 'img/wechat.jpg'; // 替换为实际的微信支付二维码图片路径
-});
+        wechatButton.addEventListener('click', () => {
+            wechatButton.classList.add('active');
+            alipayButton.classList.remove('active');
+            paymentImage.src = 'img/wechat.jpg'; // 替换为实际的微信支付二维码图片路径
+        });
 
-// 按钮点击事件
-document.querySelector('.image-button:nth-child(1)').addEventListener('click', () => {
-    openModal(aboutModal);
-});
+        // 按钮点击事件
+        document.querySelector('.image-button:nth-child(1)').addEventListener('click', () => {
+            openModal(aboutModal);
+        });
 
-document.querySelector('.image-button:nth-child(2)').addEventListener('click', () => {
-    openModal(donationModal);
-});
+        document.querySelector('.image-button:nth-child(2)').addEventListener('click', () => {
+            openModal(donationModal);
+        });
 
         // 轮播图功能
         let currentSlide = 0;
@@ -281,8 +289,30 @@ document.querySelector('.image-button:nth-child(2)').addEventListener('click', (
         // 添加搜索功能
         window.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('randomResources');
+            const latestContainer = document.getElementById('latestResources');
             container.innerHTML = ''; // 清空现有内容
-            
+            latestContainer.innerHTML = ''; // 清空现有内容
+
+            // 获取最新上架的两个资源
+            const latestResources = resources.slice(-2);
+            latestResources.forEach(resource => {
+                const item = document.createElement('div');
+                item.className = 'recommendation-card';
+                item.innerHTML = `
+                    <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+                    <div>
+                        <h3>${resource.name}</h3>
+                        <p class="author">${resource.author}</p>
+                    </div>
+                    <button class="detail-button" 
+                            onclick="gotoResourceDetail(${resource.id})"
+                            aria-label="查看详情">
+                        <span>查看详情</span>
+                    </button>
+                `;
+                latestContainer.appendChild(item);
+            });
+
             getRandomResources(6).forEach(resource => {
                 const item = document.createElement('div');
                 item.className = 'recommendation-card';
