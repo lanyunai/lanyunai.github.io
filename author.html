@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作者主页</title>
+    <link rel="icon" type="image/x-icon" href="img\logoa.png"/>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .author-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .author-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .author-info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .author-works {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .author-works h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .work-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .work-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .work-item .work-info {
+            flex: 1;
+        }
+
+        .work-item .work-name {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .work-item .work-category {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .back-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .back-button a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div id="authorDetail">
+        <div class="back-button">
+            <a href="index.html">← 返回首页</a>
+        </div>
+        <div class="author-container">
+            <img id="authorAvatar" src="img/ano.png" alt="作者头像" class="author-avatar">
+            <h1 id="authorName"></h1>
+            <div class="author-info">
+                <p>简介：<span id="authorBio">暂无简介</span></p>
+                <p>作品数量：<span id="authorWorkCount">0</span></p>
+                <p>联系方式：<span id="authorContact">暂无联系方式</span></p>
+            </div>
+            <div class="author-works">
+                <h2>作品列表</h2>
+                <div id="worksList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="information.js"></script>
+    <script>
+    // 解析URL参数并显示作者信息
+    function loadAuthorDetail() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const authorName = decodeURIComponent(urlParams.get('author'));
+
+        if (authorName) {
+            document.title = authorName + ' - 作者主页'; // 设置页面标题为作者名称
+            document.getElementById('authorName').textContent = authorName;
+
+            // 显示作者信息
+            const authorInfo = getAuthorInfo(authorName);
+            if (authorInfo) {
+                document.getElementById('authorAvatar').src = authorInfo.avatar;
+                document.getElementById('authorBio').textContent = authorInfo.bio;
+                document.getElementById('authorContact').textContent = authorInfo.contact;
+            }
+
+            // 显示作者作品
+            const works = getResourcesByAuthor(authorName);
+            const worksList = document.getElementById('worksList');
+            if (works.length > 0) {
+                document.getElementById('authorWorkCount').textContent = works.length;
+                works.forEach(work => {
+                    const workItem = document.createElement('div');
+                    workItem.className = 'work-item';
+                    workItem.innerHTML = `
+                        <img src="${work.icon}" alt="${work.name}">
+                        <div class="work-info">
+                            <div class="work-name">${work.name}</div>
+                            <div class="work-category">${work.category}</div>
+                        </div>
+                    `;
+                    workItem.addEventListener('click', () => {
+                        window.location.href = `resource.html?id=${work.id}`;
+                    });
+                    worksList.appendChild(workItem);
+                });
+            } else {
+                worksList.innerHTML = '<p>该作者暂无作品</p>';
+            }
+        } else {
+            document.getElementById('authorDetail').innerHTML = '<p>作者信息不存在</p>';
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadAuthorDetail);
+    </script>
+</body>
+</html>

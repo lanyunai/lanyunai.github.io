@@ -25,13 +25,33 @@ const categoryMap = {
     // 其他分类映射
 };
 
+const authors = [
+    { name: '澪', bio: '专注于开发实用工具', contact: 'mio@example.com', avatar: 'img/ano.png' },
+    { name: '星星', bio: '游戏开发者，热爱创造有趣的游戏', contact: 'star@example.com', avatar: 'img/ano.png' },
+    { name: 'Justliuil', bio: '技术爱好者，喜欢挑战复杂的项目', contact: 'justliuil@example.com', avatar: 'img/ano.png' },
+    { name: '小赵dc', bio: '工具开发者，致力于提升用户体验', contact: 'xiaozhao@example.com', avatar: 'img/ano.png' },
+    { name: 'itosEO', bio: '日历应用开发者，注重时间管理', contact: 'itoseo@example.com', avatar: 'img/ano.png' },
+    { name: '小米矿石', bio: '音效爱好者，专注于音效设计', contact: 'xiaomi@example.com', avatar: 'img/ano.png' },
+    { name: 'star7', bio: '娱乐应用开发者，喜欢创造有趣的体验', contact: 'star7@example.com', avatar: 'img/ano.png' },
+    { name: '晦月', bio: '工具开发者', contact: 'huiyue@example.com', avatar: 'img/ano.png' },
+    { name: '未知', bio: '这个人很神秘', contact: '未知', avatar: 'img/ano.png' }
+];
+
 function getRandomResources(count) {
     const shuffled = resources.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
 
+function getResourcesByAuthor(authorName) {
+    return resources.filter(resource => resource.author === authorName);
+}
+
 function findResourceById(id) {
     return resources.find(resource => resource.id === id);
+}
+
+function getAuthorInfo(authorName) {
+    return authors.find(author => author.name === authorName);
 }
 
 function gotoResourceDetail(id) {

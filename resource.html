@@ -47,6 +47,25 @@
             margin: 10px 0;
         }
 
+        .author-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-left: 10px;
+        }
+
+        .author-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+        }
+
         .download-button {
             display: inline-block;
             padding: 15px 40px;
@@ -118,7 +137,7 @@
             <h1 id="detailName"></h1>
             <div class="meta-info">
                 <p>版本：<span id="detailVersion"></span></p>
-                <p>作者：<span id="detailAuthor"></span></p>
+                <p>作者：<span id="detailAuthor"></span><a id="authorBtn" class="author-button">查看作者主页</a></p>
                 <p>大小：<span id="detailSize"></span></p>
                 <p>分类：<span id="detailCategory"></span></p>
             </div>
@@ -151,11 +170,17 @@
         }
     }
 
+    // 作者按钮点击事件
+    document.getElementById('authorBtn').addEventListener('click', function() {
+        const author = document.getElementById('detailAuthor').textContent;
+        window.location.href = `author.html?author=${encodeURIComponent(author)}`;
+    });
+
     // 分享按钮点击事件
     document.getElementById('shareBtn').addEventListener('click', function() {
         const resourceName = document.getElementById('detailName').textContent;
         const url = window.location.href;
-        const textToCopy = `我向你分享了${resourceName}，点击链接${url}即可查看`;
+        const textToCopy = `我向你分享了${resourceName}，点击链接${url}即可查看，更多资源请访问蓝云工坊`;
 
         navigator.clipboard.writeText(textToCopy).then(function() {
             document.getElementById('copySuccess').style.display = 'block';
