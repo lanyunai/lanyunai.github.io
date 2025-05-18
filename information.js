@@ -15,7 +15,10 @@ const resources = [
     { id: 13, name: '音效盒子', author: '小米矿石', version: '1.0', size: '246kb', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/yxhz.rpk' },
     { id: 14, name: '电子木鱼', author: 'star7', version: '1.0.7', size: '129kb', category: '娱乐', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/dzmy.rpk' },
     { id: 15, name: '极简数字时钟', author: '未知', version: '1.0.0', size: '28kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/jjszsz.rpk' },
-    { id: 16, name: '屏幕安全卫士', author: '晦月', version: '1.0', size: '23kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/pmaqws.rpk' }
+    { id: 16, name: '屏幕安全卫士', author: '晦月', version: '1.0', size: '23kb', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/pmaqws.rpk' },   
+    { id: 18, name: '五子棋', author: '澪', version: '1.0.0', size: '37kb', category: '游戏', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/wzq.rpk' },
+    { id: 19, name: 'dictionary', author: '澪', version: '213kb', size: '1.0.0', category: '工具', icon: 'img/a.png', download: 'https://lanyuncraft.github.io/ku/dictionary.rpk' },
+    { id: 17, name: '答案之书', author: 'zbw', version: '5.0.0', size: '47kb', category: '工具', icon: 'https://pic.hncj.com/up/2024-9/202497133327644.png', download: 'https://lanyuncraft.github.io/ku/dazs.rpk' },
 ];
 
 const categoryMap = {
@@ -34,7 +37,8 @@ const authors = [
     { name: '小米矿石', bio: '音效爱好者，专注于音效设计', contact: 'xiaomi@example.com', avatar: 'img/ano.png' },
     { name: 'star7', bio: '娱乐应用开发者，喜欢创造有趣的体验', contact: 'star7@example.com', avatar: 'img/ano.png' },
     { name: '晦月', bio: '工具开发者', contact: 'huiyue@example.com', avatar: 'img/ano.png' },
-    { name: '未知', bio: '这个人很神秘', contact: '未知', avatar: 'img/ano.png' }
+    { name: '未知', bio: '这个人很神秘', contact: '未知', avatar: 'img/ano.png' },
+    { name: 'zbw', bio: '[入驻开发者]只做好用精品，不做美丽废物', contact: '3093711629@qq.com', avatar: 'http://q1.qlogo.cn/g?b=qq&nk=3093711629&s=100' }
 ];
 
 function getRandomResources(count) {
@@ -52,6 +56,20 @@ function findResourceById(id) {
 
 function getAuthorInfo(authorName) {
     return authors.find(author => author.name === authorName);
+}
+
+function getRelatedResources(resourceId, count) {
+    const currentResource = findResourceById(resourceId);
+    if (!currentResource) return [];
+
+    // 获取相同分类的资源
+    const related = resources.filter(resource => 
+        resource.category === currentResource.category && resource.id !== resourceId
+    );
+
+    // 随机选取指定数量的资源
+    const shuffled = related.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
 }
 
 function gotoResourceDetail(id) {

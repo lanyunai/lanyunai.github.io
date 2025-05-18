@@ -125,6 +125,62 @@
             margin-top: 10px;
             display: none;
         }
+
+        /* 新增相关推荐样式 */
+        .related-resources {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .related-resources h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .related-resources .resource-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-resources .resource-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .related-resources .resource-item .resource-info {
+            flex: 1;
+        }
+
+        .related-resources .resource-item .resource-name {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .related-resources .resource-item .resource-category {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .related-resources .resource-item .resource-link {
+            color: #2196f3;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .related-resources .resource-item .resource-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -145,6 +201,11 @@
             <button id="shareBtn" class="share-button">分享</button>
             <div id="copySuccess" class="copy-success">复制成功！</div>
         </div>
+        <!-- 新增相关推荐部分 -->
+        <div class="related-resources">
+            <h2>相关推荐</h2>
+            <div id="relatedResourcesList"></div>
+        </div>
     </div>
 
     <script src="information.js"></script>
@@ -163,8 +224,10 @@
             document.getElementById('detailSize').textContent = resource.size;
             document.getElementById('detailIcon').src = resource.icon;
             document.getElementById('downloadBtn').href = resource.download;
-            // 根据分类显示对应文字（需要补充分类映射）
-            document.getElementById('detailCategory').textContent = resource.category; 
+            document.getElementById('detailCategory').textContent = resource.category;
+
+            // 加载相关推荐
+            loadRelatedResources(resourceId);
         } else {
             document.getElementById('resourceDetail').innerHTML = '<p>资源不存在</p>';
         }
@@ -191,6 +254,44 @@
             console.error('复制失败: ', err);
         });
     });
+
+    // 加载相关推荐
+    function loadRelatedResources(resourceId) {
+        const relatedResources = getRelatedResources(resourceId, 3);
+        const relatedResourcesList = document.getElementById('relatedResourcesList');
+        relatedResourcesList.innerHTML = '';
+
+        relatedResources.forEach(resource => {
+            const resourceItem = document.createElement('div');
+            resourceItem.className = 'resource-item';
+
+            const resourceIcon = document.createElement('img');
+            resourceIcon.src = resource.icon;
+            resourceItem.appendChild(resourceIcon);
+
+            const resourceInfo = document.createElement('div');
+            resourceInfo.className = 'resource-info';
+
+            const resourceName = document.createElement('div');
+            resourceName.className = 'resource-name';
+            resourceName.textContent = resource.name;
+            resourceInfo.appendChild(resourceName);
+
+            const resourceCategory = document.createElement('div');
+            resourceCategory.className = 'resource-category';
+            resourceCategory.textContent = resource.category;
+            resourceInfo.appendChild(resourceCategory);
+
+            const resourceLink = document.createElement('a');
+            resourceLink.className = 'resource-link';
+            resourceLink.href = `resource.html?id=${resource.id}`;
+            resourceLink.textContent = '查看详情';
+            resourceInfo.appendChild(resourceLink);
+
+            resourceItem.appendChild(resourceInfo);
+            relatedResourcesList.appendChild(resourceItem);
+        });
+    }
 
     window.addEventListener('DOMContentLoaded', loadResourceDetail);
     </script>
