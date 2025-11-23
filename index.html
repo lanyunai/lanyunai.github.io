@@ -2,395 +2,236 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>蓝云工坊</title>
-    <link rel="icon" type="image/x-icon" href="img\logoa.png"/>
-    <link rel="stylesheet" href="css/style.css">
-    <script>
-        window.onload = function() {
-            // 检查是否首次访问
-            if(!localStorage.getItem('visited')) {
-                // 创建弹窗
-                var modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100%';
-                modal.style.height = '100%';
-                modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
-                modal.style.zIndex = '1000';
-                modal.style.display = 'flex';
-                modal.style.justifyContent = 'center';
-                modal.style.alignItems = 'center';
-                
-                // 创建iframe加载远程文档
-                var iframe = document.createElement('iframe');
-                iframe.src = 'https://api.yunsss.asia/fileecho.php?id=2060';
-                iframe.style.width = '80%';
-                iframe.style.height = '80%';
-                iframe.style.border = 'none';
-                iframe.style.backgroundColor = 'white';
-                
-                // 添加关闭按钮
-                var closeBtn = document.createElement('button');
-                closeBtn.innerHTML = '关闭';
-                closeBtn.style.position = 'absolute';
-                closeBtn.style.top = '10px';
-                closeBtn.style.right = '10px';
-                closeBtn.onclick = function() {
-                    document.body.removeChild(modal);
-                };
-                
-                modal.appendChild(iframe);
-                modal.appendChild(closeBtn);
-                document.body.appendChild(modal);
-                
-                // 标记为已访问
-                localStorage.setItem('visited', 'true');
-            }
-        };
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务迁移通知 - 轻腕应用商店</title>
     <style>
-        /* 添加遮罩层样式 */
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .notification-card {
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-            display: none;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px 25px;
+            text-align: center;
+            margin-bottom: 30px;
         }
-
-        /* 调整侧边栏按钮的层级 */
-        .sidebar-toggle {
-            z-index: 1001;
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 18px;
+            background: #f0f2f5;
+            border: 1px solid #e8eaed;
         }
-
-        /* 侧边栏展开时的样式 */
-        .sidebar.active {
-            z-index: 1000;
+        
+        .app-icon span {
+            font-size: 32px;
+            font-weight: 300;
         }
-
-        /* 调整模态框的层级 */
-        .modal {
-            z-index: 10000; /* 修改为最高层级 */
+        
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a1a1a;
         }
-
+        
+        .description {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            color: #1a73e8;
+            font-weight: 500;
+        }
+        
+        .redirect-button {
+            display: inline-block;
+            width: 100%;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+        }
+        
+        .redirect-button:hover, .redirect-button:active {
+            background-color: #1669d9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
+        }
+        
+        .features {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-text h3 {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .feature-text p {
+            font-size: 13px;
+            color: #888;
+        }
+        
+        .footer {
+            font-size: 13px;
+            color: #999;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 480px) {
+            .notification-card {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .description {
+                font-size: 14px;
+            }
+            
+            .redirect-button {
+                padding: 13px 20px;
+                font-size: 15px;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .notification-card {
+                padding: 20px 15px;
+            }
+            
+            .app-icon {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .app-icon span {
+                font-size: 28px;
+            }
+            
+            h1 {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
-    <button id="sidebarToggle" class="sidebar-toggle">&#9776;</button>
-    <div id="overlay"></div>
-    <div id="sidebar" class="sidebar" style="z-index: 1020;">
-        <ul>
-            <li><a onclick="openModal(appModal)">下载app</a></li>
-            <li><a onclick="openModal(announcementModal)">公告</a></li>
-        </ul>
-    </div>
-    <header class="site-header">
-        <section class="search-section">
-            <div class="header-content" style="display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.svg" alt="蓝云工坊 Logo" class="site-logo" width="80" height="80">
-                <div style="display: flex; flex-direction: column;">
+    <div class="notification-card">
+        <div class="app-icon">
+            <span>轻腕</span>
+        </div>
+        
+        <h1>服务升级通知</h1>
+        <p class="description">为了提供更优质的服务体验，我们已经将服务迁移到全新的 <span class="highlight">轻腕应用商店</span>。</p>
+        <p class="description">新平台提供更快的下载速度、更丰富的应用资源和更完善的服务支持。</p>
+        
+        <a href="https://qingwear.top/store" class="redirect-button">前往轻腕应用商店</a>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-text">
+                    <h3>更快速度</h3>
+                    <p>优化的下载引擎，提升应用获取速度</p>
                 </div>
             </div>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="搜索资源名称、作者或分类" class="collapsed">
-                <button id="searchButton" class="search-button">&#128269;</button>
-            </div>
-        </section>
-    </header>
-    <section class="search-section">
-        <div class="carousel-container">
-            <div class="carousel-slides">
-                <div class="carousel-slide active">
-                    <img src="img/1.jpg" alt="Slide 1">
-                </div>
-                <div class="carousel-slide">
-                    <img src="img/2.jpg" alt="Slide 2">
-                </div>
-                <div class="carousel-slide">
-                    <img src="img/3.jpg" alt="Slide 3">
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">
+                    <h3>安全可靠</h3>
+                    <p>严格审核机制，保障应用安全性</p>
                 </div>
             </div>
-            <button class="carousel-prev">&#10094;</button>
-            <button class="carousel-next">&#10095;</button>
-        </div>
-    </section>
-    <section class="search-section">
-            <div class="image-buttons">
-                <div class="image-button" onclick="openModal(aboutModal)">
-                    <img src="img\icon\about.png" alt="Button 1">
+            <div class="feature-item">
+                <div class="feature-icon">📱</div>
+                <div class="feature-text">
+                    <h3>丰富资源</h3>
+                    <p>海量应用资源，满足多样化需求</p>
                 </div>
-                <div class="image-button" onclick="openModal(donationModal)">
-                    <img src="img\icon\ds.png" alt="Button 2">
-                </div>
-                <div class="image-button" onclick="window.location.href='page3.html'">
-                    <img src="img\icon\vip.png" alt="Button 3">
-                </div>
-                <div class="image-button" onclick="window.location.href='dev/index.html'">
-                    <img src="img\icon\dev.png" alt="Button 4">
-                </div>
-                <div class="image-button" onclick="window.location.href='https://forms.cloud.microsoft/r/wh7iRivFcL'">
-                    <img src="img\icon\up.png" alt="Button 4">
-                </div>
-        </div>
-        <!-- About Modal -->
-<div id="aboutModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>关于我们</h2>
-        <p>这里是关于我们的详细信息。</p>
-    </div>
-</div>
-
-<!-- Donation Modal -->
-<div id="donationModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>打赏支持</h2>
-        <div class="donation-methods">
-            <button id="alipayButton" class="payment-button">支付宝</button>
-            <button id="wechatButton" class="payment-button">微信支付</button>
-        </div>
-        <div id="paymentImageContainer">
-            <img id="paymentImage" src="img\alipay.jpg" alt="Payment QR Code"> <!-- 默认显示支付宝二维码 -->
+            </div>
         </div>
     </div>
-</div>
+    
+    <p class="footer">轻腕应用商店 © 2023 版权所有</p>
 
-<!-- App Modal -->
-<div id="appModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>下载APP</h2>
-        <img src="img/app_qr.png" alt="App QR Code" style="width: 80%; margin: 0 auto; display: block;">
-    </div>
-</div>
-
-<!-- Announcement Modal -->
-<div id="announcementModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <iframe src="https://api.yunsss.asia/fileecho.php?id=2060" style="width: 100%; height: 80%; border: none;"></iframe>
-    </div>
-</div>
-    </section>
-    <section class="search-section">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <h2>最新上架</h2>
-        </div>
-        <div id="latestResources" class="resource-grid">
-            <!-- 最新上架卡片将横向排列 -->
-        </div>
-    </section>
-    <section class="search-section">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <h2>推荐资源</h2>
-            <button id="refreshButton" class="search-button">刷新推荐</button>
-        </div>
-        <div id="randomResources" class="resource-grid">
-            <!-- 推荐卡片将横向排列 -->
-        </div>
-    </section>
-    <section class="search-section">
-        <p>Copyright © 2025 蓝云工坊Blucraft </p>
-    </section>
-
-    <script src="information.js"></script>
     <script>
-        // 获取元素引用
-        const aboutModal = document.getElementById('aboutModal');
-        const donationModal = document.getElementById('donationModal');
-        const closeButtons = document.querySelectorAll('.close');
-        const alipayButton = document.getElementById('alipayButton');
-        const wechatButton = document.getElementById('wechatButton');
-        const paymentImage = document.getElementById('paymentImage');
-
-        // 关闭模态框函数
-        function closeModal(modal) {
-            modal.style.display = 'none';
-        }
-
-        // 打开模态框函数
-        function openModal(modal) {
-            modal.style.display = 'block';
-        }
-
-        // 为关闭按钮添加事件监听器
-        closeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const modal = button.closest('.modal');
-                closeModal(modal);
-            });
-        });
-
-        // 点击外部区域关闭模态框
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        };
-
-        // 切换支付方式
-        alipayButton.addEventListener('click', () => {
-            alipayButton.classList.add('active');
-            wechatButton.classList.remove('active');
-            paymentImage.src = 'img/alipay.jpg'; // 替换为实际的支付宝二维码图片路径
-        });
-
-        wechatButton.addEventListener('click', () => {
-            wechatButton.classList.add('active');
-            alipayButton.classList.remove('active');
-            paymentImage.src = 'img/wechat.jpg'; // 替换为实际的微信支付二维码图片路径
-        });
-
-        // 按钮点击事件
-        document.querySelector('.image-button:nth-child(1)').addEventListener('click', () => {
-            openModal(aboutModal);
-        });
-
-        document.querySelector('.image-button:nth-child(2)').addEventListener('click', () => {
-            openModal(donationModal);
-        });
-
-        // 轮播图功能
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const totalSlides = slides.length;
-        const slidesContainer = document.querySelector('.carousel-slides');
-
-        function showSlide(index) {
-            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        document.querySelector('.carousel-next').addEventListener('click', nextSlide);
-        document.querySelector('.carousel-prev').addEventListener('click', prevSlide);
-
-        // 自动轮播
-        setInterval(nextSlide, 5000);
-
-        // 添加搜索功能
-        window.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('randomResources');
-            const latestContainer = document.getElementById('latestResources');
-            container.innerHTML = ''; // 清空现有内容
-            latestContainer.innerHTML = ''; // 清空现有内容
-
-            // 获取最新上架的两个资源
-            const latestResources = resources.slice(-2);
-            latestResources.forEach(resource => {
-                const item = document.createElement('div');
-                item.className = 'recommendation-card';
-                item.innerHTML = `
-                    <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
-                    <div>
-                        <h3>${resource.name}</h3>
-                        <p class="author">${resource.author}</p>
-                    </div>
-                    <button class="detail-button" 
-                            onclick="gotoResourceDetail(${resource.id})"
-                            aria-label="查看详情">
-                        <span>查看详情</span>
-                    </button>
-                `;
-                latestContainer.appendChild(item);
-            });
-
-            getRandomResources(6).forEach(resource => {
-                const item = document.createElement('div');
-                item.className = 'recommendation-card';
-                item.innerHTML = `
-                    <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
-                    <div>
-                        <h3>${resource.name}</h3>
-                        <p class="author">${resource.author}</p>
-                    </div>
-                    <button class="detail-button" 
-                            onclick="gotoResourceDetail(${resource.id})"
-                            aria-label="查看详情">
-                        <span>查看详情</span>
-                    </button>
-                `;
-                container.appendChild(item);
-            });
-
-            // 添加搜索功能
-            document.getElementById('searchButton').addEventListener('click', () => {
-                const query = document.getElementById('searchInput').value.trim();
-                if (query) {
-                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-                }
-            });
-        });
-
-        // 添加刷新功能
-        document.getElementById('refreshButton').addEventListener('click', () => {
-            const button = document.getElementById('refreshButton');
-            const container = document.getElementById('randomResources');
+        // 简单的点击效果增强
+        document.querySelector('.redirect-button').addEventListener('click', function(e) {
+            // 可以在这里添加跳转前的统计代码
+            console.log('用户点击了跳转按钮，将前往轻腕应用商店');
             
-            // 添加加载动画
-            container.classList.add('loading');
-            button.disabled = true;
-
-            setTimeout(() => {
-                container.innerHTML = ''; // 清空现有内容
-                
-                getRandomResources(6).forEach(resource => {
-                    const item = document.createElement('div');
-                    item.className = 'recommendation-card';
-                    item.innerHTML = `
-                        <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
-                        <div>
-                            <h3>${resource.name}</h3>
-                            <p class="author">${resource.author}</p>
-                        </div>
-                        <button class="detail-button" 
-                                onclick="gotoResourceDetail(${resource.id})"
-                                aria-label="查看详情">
-                            <span>查看详情</span>
-                        </button>
-                    `;
-                    container.appendChild(item);
-                });
-
-                // 移除加载动画
-                container.classList.remove('loading');
-                button.classList.remove('refreshing');
-                button.disabled = false;
-            }, 1000); // 模拟1秒加载时间
-        });
-
-        // 侧边栏展开与隐藏功能
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const overlay = document.getElementById('overlay');
-
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
-        });
-
-        // 点击遮罩层关闭侧边栏
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.style.display = 'none';
+            // 实际使用时应替换为真实的跳转链接
+            // window.location.href = "https://example.com";
         });
     </script>
 </body>
