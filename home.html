@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>蓝云工坊</title>
+  <link rel="icon" type="image/x-icon" href="img\logoa.png"/>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    window.onload = function() {
+      // 检查是否首次访问
+      if(!localStorage.getItem('visited')) {
+        // 创建弹窗
+        var modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        modal.style.zIndex = '1000';
+        modal.style.display = 'flex';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        
+        // 创建iframe加载远程文档
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://api.yunsss.asia/fileecho.php?id=2060';
+        iframe.style.width = '80%';
+        iframe.style.height = '80%';
+        iframe.style.border = 'none';
+        iframe.style.backgroundColor = 'white';
+        
+        // 添加关闭按钮
+        var closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '关闭';
+        closeBtn.style.position = 'absolute';
+        closeBtn.style.top = '10px';
+        closeBtn.style.right = '10px';
+        closeBtn.onclick = function() {
+          document.body.removeChild(modal);
+        };
+        
+        modal.appendChild(iframe);
+        modal.appendChild(closeBtn);
+        document.body.appendChild(modal);
+        
+        // 标记为已访问
+        localStorage.setItem('visited', 'true');
+      }
+    };
+  </script>
+  <style>
+    /* 添加遮罩层样式 */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      display: none;
+    }
+
+    /* 调整侧边栏按钮的层级 */
+    .sidebar-toggle {
+      z-index: 1001;
+    }
+
+    /* 侧边栏展开时的样式 */
+    .sidebar.active {
+      z-index: 1000;
+    }
+
+    /* 调整模态框的层级 */
+    .modal {
+      z-index: 10000; /* 修改为最高层级 */
+    }
+
+    /* 新增广告样式 */
+    .ad-container {
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    .ad-banner {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .ad-banner img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .ad-banner p {
+      margin-top: 10px;
+      color: #666;
+    }
+
+  </style>
+</head>
+<body>
+  <button id="sidebarToggle" class="sidebar-toggle">&#9776;</button>
+  <div id="overlay"></div>
+  <div id="sidebar" class="sidebar" style="z-index: 1020;">
+    <ul>
+      <li><a onclick="openModal(appModal)">下载app</a></li>
+      <li><a onclick="openModal(announcementModal)">公告</a></li>
+    </ul>
+  </div>
+  <header class="site-header">
+    <section class="search-section">
+      <div class="header-content" style="display: flex; align-items: center; gap: 10px;">
+        <img src="img/logo.svg" alt="蓝云工坊 Logo" class="site-logo" width="80" height="80">
+        <div style="display: flex; flex-direction: column;">
+        </div>
+      </div>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="搜索资源名称、作者或分类" class="collapsed">
+        <button id="searchButton" class="search-button">&#128269;</button>
+      </div>
+    </section>
+  </header>
+  <section class="search-section">
+    <div class="carousel-container">
+      <div class="carousel-slides">
+        <div class="carousel-slide active">
+          <img src="img/1.jpg" alt="Slide 1">
+        </div>
+        <div class="carousel-slide">
+          <img src="img/2.jpg" alt="Slide 2">
+        </div>
+        <div class="carousel-slide">
+          <img src="img/3.jpg" alt="Slide 3">
+        </div>
+      </div>
+      <button class="carousel-prev">&#10094;</button>
+      <button class="carousel-next">&#10095;</button>
+    </div>
+  </section>
+  <section class="search-section">
+      <div class="image-buttons" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+        <div class="image-button" onclick="openModal(aboutModal)">
+          <img src="img\icon\about.png" alt="Button 1">
+        </div>
+        <div class="image-button" onclick="openModal(donationModal)">
+          <img src="img\icon\ds.png" alt="Button 2">
+        </div>
+        <div class="image-button" onclick="window.location.href='page3.html'">
+          <img src="img\icon\vip.png" alt="Button 3">
+        </div>
+        <div class="image-button" onclick="window.location.href='dev/index.html'">
+          <img src="img\icon\dev.png" alt="Button 4">
+        </div>
+        <div class="image-button" onclick="window.location.href='https://forms.cloud.microsoft/r/wh7iRivFcL'">
+          <img src="img\icon\up.png" alt="Button 4">
+        </div>
+    </div>
+    <!-- About Modal -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>关于我们</h2>
+    <p>这里是关于我们的详细信息。</p>
+  </div>
+</div>
+
+<!-- Donation Modal -->
+<div id="donationModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>打赏支持</h2>
+    <div class="donation-methods">
+      <button id="alipayButton" class="payment-button">支付宝</button>
+      <button id="wechatButton" class="payment-button">微信支付</button>
+    </div>
+    <div id="paymentImageContainer">
+      <img id="paymentImage" src="img\alipay.jpg" alt="Payment QR Code"> <!-- 默认显示支付宝二维码 -->
+    </div>
+  </div>
+</div>
+
+<!-- App Modal -->
+<div id="appModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>下载APP</h2>
+    <img src="img/app_qr.png" alt="App QR Code" style="width: 80%; margin: 0 auto; display: block;">
+  </div>
+</div>
+
+<!-- Announcement Modal -->
+<div id="announcementModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <iframe src="https://api.yunsss.asia/fileecho.php?id=2060" style="width: 100%; height: 80%; border: none;"></iframe>
+  </div>
+</div>
+  </section>
+  <section class="search-section">
+    <!-- 修改广告位部分 -->
+    <div class="ad-container">
+      <div class="ad-banner">
+        <a href="" id="adLink">
+          <img id="adImage" src="" alt="广告">
+          <p id="adTitle"></p>
+          <p id="adDesc"></p>
+        </a>
+      </div>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <h2>最新上架</h2>
+    </div>
+    <div id="latestResources" class="resource-grid">
+      <!-- 最新上架卡片将横向排列 -->
+    </div>
+  </section>
+  <section class="search-section">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <h2>推荐资源</h2>
+      <button id="refreshButton" class="search-button">刷新推荐</button>
+    </div>
+    <div id="randomResources" class="resource-grid">
+      <!-- 推荐卡片将横向排列 -->
+    </div>
+  </section>
+  <section class="search-section">
+    <p>Copyright © 2025 蓝云工坊QingwearUsoft </p>
+  </section>
+
+  <script src="information.js"></script>
+  <script>
+    // 获取元素引用
+    const aboutModal = document.getElementById('aboutModal');
+    const donationModal = document.getElementById('donationModal');
+    const closeButtons = document.querySelectorAll('.close');
+    const alipayButton = document.getElementById('alipayButton');
+    const wechatButton = document.getElementById('wechatButton');
+    const paymentImage = document.getElementById('paymentImage');
+
+    // 关闭模态框函数
+    function closeModal(modal) {
+      modal.style.display = 'none';
+    }
+
+    // 打开模态框函数
+    function openModal(modal) {
+      modal.style.display = 'block';
+    }
+
+    // 为关闭按钮添加事件监听器
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = button.closest('.modal');
+        closeModal(modal);
+      });
+    });
+
+    // 点击外部区域关闭模态框
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
+    };
+
+    // 切换支付方式
+    alipayButton.addEventListener('click', () => {
+      alipayButton.classList.add('active');
+      wechatButton.classList.remove('active');
+      paymentImage.src = 'img/alipay.jpg'; // 替换为实际的支付宝二维码图片路径
+    });
+
+    wechatButton.addEventListener('click', () => {
+      wechatButton.classList.add('active');
+      alipayButton.classList.remove('active');
+      paymentImage.src = 'img/wechat.jpg'; // 替换为实际的微信支付二维码图片路径
+    });
+
+    // 按钮点击事件
+    document.querySelector('.image-button:nth-child(1)').addEventListener('click', () => {
+      openModal(aboutModal);
+    });
+
+    document.querySelector('.image-button:nth-child(2)').addEventListener('click', () => {
+      openModal(donationModal);
+    });
+
+    // 轮播图功能
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    const slidesContainer = document.querySelector('.carousel-slides');
+
+    function showSlide(index) {
+      slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlide);
+    }
+
+    document.querySelector('.carousel-next').addEventListener('click', nextSlide);
+    document.querySelector('.carousel-prev').addEventListener('click', prevSlide);
+
+    // 自动轮播
+    setInterval(nextSlide, 5000);
+
+    // 添加搜索功能
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('randomResources');
+      const latestContainer = document.getElementById('latestResources');
+      container.innerHTML = ''; // 清空现有内容
+      latestContainer.innerHTML = ''; // 清空现有内容
+
+      // 获取最新上架的两个资源
+      const latestResources = resources.slice(-2);
+      latestResources.forEach(resource => {
+        const item = document.createElement('div');
+        item.className = 'recommendation-card';
+        item.innerHTML = `
+          <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+          <div>
+            <h3>${resource.name}</h3>
+            <p class="author">${resource.author}</p>
+          </div>
+          <button class="detail-button" 
+              onclick="gotoResourceDetail(${resource.id})"
+              aria-label="查看详情">
+            <span>查看详情</span>
+          </button>
+        `;
+        latestContainer.appendChild(item);
+      });
+
+      getRandomResources(6).forEach(resource => {
+        const item = document.createElement('div');
+        item.className = 'recommendation-card';
+        item.innerHTML = `
+          <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+          <div>
+            <h3>${resource.name}</h3>
+            <p class="author">${resource.author}</p>
+          </div>
+          <button class="detail-button" 
+              onclick="gotoResourceDetail(${resource.id})"
+              aria-label="查看详情">
+            <span>查看详情</span>
+          </button>
+        `;
+        container.appendChild(item);
+      });
+
+      // 添加搜索功能
+      document.getElementById('searchButton').addEventListener('click', () => {
+        const query = document.getElementById('searchInput').value.trim();
+        if (query) {
+          window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+        }
+      });
+
+      // 加载广告
+      const ad = getRandomAd();
+      document.getElementById('adImage').src = ad.image;
+      document.getElementById('adTitle').textContent = ad.title;
+      document.getElementById('adDesc').textContent = ad.description;
+      document.getElementById('adLink').href = ad.link;
+    });
+
+    // 添加刷新功能
+    document.getElementById('refreshButton').addEventListener('click', () => {
+      const button = document.getElementById('refreshButton');
+      const container = document.getElementById('randomResources');
+      
+      // 添加加载动画
+      container.classList.add('loading');
+      button.disabled = true;
+
+      setTimeout(() => {
+        container.innerHTML = ''; // 清空现有内容
+        
+        getRandomResources(6).forEach(resource => {
+          const item = document.createElement('div');
+          item.className = 'recommendation-card';
+          item.innerHTML = `
+            <img src="${resource.icon}" alt="${resource.name}" loading="lazy">
+            <div>
+              <h3>${resource.name}</h3>
+              <p class="author">${resource.author}</p>
+            </div>
+            <button class="detail-button" 
+                onclick="gotoResourceDetail(${resource.id})"
+                aria-label="查看详情">
+              <span>查看详情</span>
+            </button>
+          `;
+          container.appendChild(item);
+        });
+
+        // 移除加载动画
+        container.classList.remove('loading');
+        button.classList.remove('refreshing');
+        button.disabled = false;
+      }, 1000); // 模拟1秒加载时间
+    });
+
+    // 侧边栏展开与隐藏功能
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const overlay = document.getElementById('overlay');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
+    });
+
+    // 点击遮罩层关闭侧边栏
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
